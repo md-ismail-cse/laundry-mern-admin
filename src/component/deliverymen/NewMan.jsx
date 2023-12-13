@@ -21,6 +21,7 @@ const NewMan = () => {
       .post(process.env.REACT_APP_SERVER + "/api/admin/delivery-men", data, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: localStorage.getItem("aToken"),
         },
       })
       .then((response) => {

@@ -43,7 +43,7 @@ h1 {
   color: #ff3636;
 }
 .content {
-  margin-top: 100px;
+  margin-top: 75px;
   padding: 0px 15px;
   padding-bottom: 50px;
 }
@@ -51,7 +51,7 @@ h1 {
   display: inline-block;
   vertical-align: top;
   box-sizing: border-box;
-  margin: 25px 0px 0px 1px;
+  margin: 0px 0px 0px -10px;
   padding: 1px 5px;
   min-width: 19px;
   height: 18px;
@@ -107,13 +107,13 @@ table tr {
 table tr th,
 table tr td {
   border-bottom: 1px solid #dddddd;
-  padding: 8px 8px;
+  padding: 5px 8px;
   text-align: center;
   cursor: default;
 }
 table tr td {
   color: #2f3542;
-  font-size: 14px;
+  font-size: 13px;
   border-right: 1px solid #ddd;
 }
 table th {
@@ -131,9 +131,7 @@ table tr:hover {
 .text-bold {
   font-weight: bold;
 }
-.order-items table a {
-  transition: 0.5s;
-}
+
 .order-items table a:hover {
   color: #ff3636;
 }

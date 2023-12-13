@@ -13,7 +13,12 @@ const Customer = () => {
   useEffect(() => {
     const fatchCustomers = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + "/api/admin/customers"
+        process.env.REACT_APP_SERVER + "/api/admin/customers",
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       setCustomers(data);
       setLoading(true);
@@ -35,7 +40,12 @@ const Customer = () => {
         axios
           .delete(
             process.env.REACT_APP_SERVER +
-              `/api/admin/customers/${id}?thumb=${thumb}`
+              `/api/admin/customers/${id}?thumb=${thumb}`,
+            {
+              headers: {
+                Authorization: localStorage.getItem("aToken"),
+              },
+            }
           )
           .catch((error) => {
             Swal.fire({

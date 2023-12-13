@@ -13,7 +13,12 @@ const CompleteOrders = () => {
   useEffect(() => {
     const fatchOrders = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + "/api/admin/orders"
+        process.env.REACT_APP_SERVER + "/api/admin/orders",
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       const completeOrder = data.filter((curData) => {
         return curData.status.toLowerCase() === "delivered";
@@ -31,8 +36,8 @@ const CompleteOrders = () => {
         <div className="order-items">
           <table>
             <tr>
+              <th>ID</th>
               <th>Customer</th>
-              <th>Order_id</th>
               <th>Items</th>
               <th>Qty</th>
               <th>Total_price</th>
@@ -54,19 +59,19 @@ const CompleteOrders = () => {
                   orders.map((item) => (
                     <tr>
                       <td>
+                        <Link to={"/orders/" + item._id}>{item._id}</Link>
+                      </td>
+                      <td>
                         <Link to={"/customers/" + item.customer_id}>
                           {item.customer_name}
                         </Link>
                       </td>
-                      <td>
-                        <Link to={"/orders/" + item._id}>{item._id}</Link>
-                      </td>
-                      <td>{item.totalItmes}</td>
+                      <td>{item.totalItems}</td>
                       <td>{item.total_quantity}</td>
                       <td>৳ {item.total_price}</td>
                       <td>{item.payment}</td>
                       <td>
-                        <span className="btn-small">{item.status}</span>
+                        <span className="btn-delv">{item.status}</span>
                       </td>
                       <td>{moment(item.order_date).format("lll")}</td>
                       <td>{moment(item.expTime).format("lll")}</td>

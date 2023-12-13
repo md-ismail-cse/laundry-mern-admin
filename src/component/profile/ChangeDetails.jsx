@@ -7,7 +7,6 @@ import Loader from "../common/loader/Loader";
 const ChangeDetails = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [currentThumb, setThumb] = useState("");
@@ -18,11 +17,15 @@ const ChangeDetails = () => {
   useEffect(() => {
     const fatchAdmin = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + `/api/admin/users/${id}`
+        process.env.REACT_APP_SERVER + `/api/admin/users/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       setName(data.name);
       setUsername(data.username);
-      setEmail(data.email);
       setPhone(data.phone);
       setAddress(data.address);
       setThumb(data.thumb);
@@ -48,6 +51,7 @@ const ChangeDetails = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: localStorage.getItem("aToken"),
           },
         }
       )
@@ -92,14 +96,6 @@ const ChangeDetails = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-              />
-              <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                className="form-control text-bold"
-                id="floatingInput"
-                value={email}
-                readOnly
               />
               <label htmlFor="phone">Phone</label>
               <input

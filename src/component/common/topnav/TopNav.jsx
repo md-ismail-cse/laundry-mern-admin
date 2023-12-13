@@ -10,7 +10,12 @@ const TopNav = () => {
   useEffect(() => {
     const fatchAdmin = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + `/api/admin/users/${id}`
+        process.env.REACT_APP_SERVER + `/api/admin/users/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       setAdmin(data);
     };

@@ -15,7 +15,12 @@ const SingleCustomer = () => {
   useEffect(() => {
     const fatchCustomer = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + `/api/admin/customers/${id}`
+        process.env.REACT_APP_SERVER + `/api/admin/customers/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       setCustomer(data);
       setLoading(true);
@@ -29,7 +34,12 @@ const SingleCustomer = () => {
   useEffect(() => {
     const fatchOrders = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + "/api/admin/orders"
+        process.env.REACT_APP_SERVER + "/api/admin/orders",
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       const fatchOrders = data.filter((curData) => {
         return curData.customer_id === id;
@@ -54,7 +64,12 @@ const SingleCustomer = () => {
         axios
           .delete(
             process.env.REACT_APP_SERVER +
-              `/api/admin/customers/${id}?thumb=${thumb}`
+              `/api/admin/customers/${id}?thumb=${thumb}`,
+            {
+              headers: {
+                Authorization: localStorage.getItem("aToken"),
+              },
+            }
           )
           .then((response) => {
             Swal.fire({

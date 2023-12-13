@@ -13,7 +13,12 @@ export const DeliveryMen = () => {
   useEffect(() => {
     const fatchDeliveryMen = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + "/api/admin/delivery-men"
+        process.env.REACT_APP_SERVER + "/api/admin/delivery-men",
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       setDeliveryMen(data);
       setLoading(true);
@@ -35,7 +40,12 @@ export const DeliveryMen = () => {
         axios
           .delete(
             process.env.REACT_APP_SERVER +
-              `/api/admin/delivery-men/${id}?thumb=${thumb}`
+              `/api/admin/delivery-men/${id}?thumb=${thumb}`,
+            {
+              headers: {
+                Authorization: localStorage.getItem("aToken"),
+              },
+            }
           )
           .catch((error) => {
             Swal.fire({

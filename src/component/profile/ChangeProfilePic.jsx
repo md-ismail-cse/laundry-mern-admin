@@ -13,7 +13,12 @@ const ChangeProfilePic = () => {
   useEffect(() => {
     const fatchAdmin = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + `/api/admin/users/${id}`
+        process.env.REACT_APP_SERVER + `/api/admin/users/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       setThumb(data.thumb);
       setLoading(true);
@@ -34,6 +39,7 @@ const ChangeProfilePic = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: localStorage.getItem("aToken"),
           },
         }
       )

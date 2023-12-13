@@ -23,6 +23,7 @@ const NewUser = () => {
       .post(process.env.REACT_APP_SERVER + "/api/admin/users", data, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: localStorage.getItem("aToken"),
         },
       })
       .then((response) => {

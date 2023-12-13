@@ -14,7 +14,12 @@ const Profile = () => {
   useEffect(() => {
     const fatchAdmin = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + `/api/admin/users/${id}`
+        process.env.REACT_APP_SERVER + `/api/admin/users/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       setAdmin(data);
       setLoading(true);
@@ -46,9 +51,6 @@ const Profile = () => {
                   </li>
                   <li className="list-group-item">
                     <b>Phone: </b> {admin.phone}
-                  </li>
-                  <li className="list-group-item">
-                    <b>Position: </b> {admin.position}
                   </li>
                   <li className="list-group-item">
                     <b>Joining Date: </b> {moment(admin.date).format("ll")}

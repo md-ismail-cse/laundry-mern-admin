@@ -13,7 +13,12 @@ const PendingOrders = () => {
   useEffect(() => {
     const fatchOrders = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + "/api/admin/orders"
+        process.env.REACT_APP_SERVER + "/api/admin/orders",
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       const completeOrder = data.filter((curData) => {
         return (
@@ -34,8 +39,8 @@ const PendingOrders = () => {
         <div className="order-items">
           <table>
             <tr>
+              <th>ID</th>
               <th>Customer</th>
-              <th>Order_id</th>
               <th>Items</th>
               <th>Qty</th>
               <th>Total_price</th>
@@ -57,12 +62,12 @@ const PendingOrders = () => {
                   orders.map((item) => (
                     <tr>
                       <td>
+                        <Link to={"/orders/" + item._id}>{item._id}</Link>
+                      </td>
+                      <td>
                         <Link to={"/customers/" + item.customer_id}>
                           {item.customer_name}
                         </Link>
-                      </td>
-                      <td>
-                        <Link to={"/orders/" + item._id}>{item._id}</Link>
                       </td>
                       <td>{item.totalItems}</td>
                       <td>{item.total_quantity}</td>

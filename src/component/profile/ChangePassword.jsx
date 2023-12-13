@@ -17,7 +17,12 @@ const ChangePassword = () => {
   useEffect(() => {
     const fatchAdmin = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + `/api/admin/users/${id}`
+        process.env.REACT_APP_SERVER + `/api/admin/users/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       setThumb(data.thumb);
       setEmail(data.email);
@@ -43,6 +48,7 @@ const ChangePassword = () => {
           {
             headers: {
               "Content-Type": "multipart/form-data",
+              Authorization: localStorage.getItem("aToken"),
             },
           }
         )

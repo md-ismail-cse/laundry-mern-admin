@@ -12,7 +12,12 @@ const CartItems = () => {
   useEffect(() => {
     const fatchOrders = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + "/api/admin/orders"
+        process.env.REACT_APP_SERVER + "/api/admin/orders",
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       const pendingOrder = data.filter((curData) => {
         return (
@@ -38,7 +43,12 @@ const CartItems = () => {
   useEffect(() => {
     const fatchRevenue = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + `/api/admin/revenue?q=${query}`
+        process.env.REACT_APP_SERVER + `/api/admin/revenue?q=${query}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       setRevenue(data);
       setBranchName(query);

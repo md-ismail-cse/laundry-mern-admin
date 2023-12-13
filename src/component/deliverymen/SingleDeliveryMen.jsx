@@ -15,7 +15,12 @@ const SingleDeliveryMen = () => {
   useEffect(() => {
     const fatchDeliveryMen = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + `/api/admin/delivery-men/${id}`
+        process.env.REACT_APP_SERVER + `/api/admin/delivery-men/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       setDeliveryMne(data);
       setLoading(true);
@@ -29,7 +34,12 @@ const SingleDeliveryMen = () => {
   useEffect(() => {
     const fatchOrders = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + "/api/admin/orders"
+        process.env.REACT_APP_SERVER + "/api/admin/orders",
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       const fatchOrders = data.filter((curData) => {
         return curData.delivery_man_id === id;
@@ -54,7 +64,12 @@ const SingleDeliveryMen = () => {
         axios
           .delete(
             process.env.REACT_APP_SERVER +
-              `/api/admin/delivery-men/${id}?thumb=${thumb}`
+              `/api/admin/delivery-men/${id}?thumb=${thumb}`,
+            {
+              headers: {
+                Authorization: localStorage.getItem("aToken"),
+              },
+            }
           )
           .then((response) => {
             Swal.fire({

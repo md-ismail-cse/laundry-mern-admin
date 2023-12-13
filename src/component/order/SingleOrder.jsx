@@ -21,7 +21,12 @@ const SingleOrder = () => {
   useEffect(() => {
     const fatchOrder = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + `/api/admin/orders/${id}`
+        process.env.REACT_APP_SERVER + `/api/admin/orders/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       setOrder(data);
       setitems(data.items);
@@ -38,7 +43,12 @@ const SingleOrder = () => {
   useEffect(() => {
     const fatchSelectMan = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + "/api/admin/delivery-men"
+        process.env.REACT_APP_SERVER + "/api/admin/delivery-men",
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       const freeDeliveryMan = data.filter((curData) => {
         return curData.pendingOrders < 3;
@@ -56,7 +66,12 @@ const SingleOrder = () => {
       const fatchDeliveryMen = async () => {
         const { data } = await axios.get(
           process.env.REACT_APP_SERVER +
-            `/api/admin/delivery-men/${deliveryManId}`
+            `/api/admin/delivery-men/${deliveryManId}`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("aToken"),
+            },
+          }
         );
         setDeliveryManName(data.name);
       };
@@ -81,6 +96,7 @@ const SingleOrder = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: localStorage.getItem("aToken"),
           },
         }
       )
@@ -113,7 +129,11 @@ const SingleOrder = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(process.env.REACT_APP_SERVER + `/api/admin/orders/${id}`)
+          .delete(process.env.REACT_APP_SERVER + `/api/admin/orders/${id}`, {
+            headers: {
+              Authorization: localStorage.getItem("aToken"),
+            },
+          })
           .then((response) => {
             Swal.fire({
               icon: "success",

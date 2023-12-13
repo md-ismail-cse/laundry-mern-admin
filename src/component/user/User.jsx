@@ -13,7 +13,12 @@ const User = () => {
   useEffect(() => {
     const fatchUsers = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_SERVER + "/api/admin/users"
+        process.env.REACT_APP_SERVER + "/api/admin/users",
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
       );
       setUsers(data);
       setLoading(true);
@@ -34,7 +39,12 @@ const User = () => {
         axios
           .delete(
             process.env.REACT_APP_SERVER +
-              `/api/admin/users/${id}?thumb=${thumb}`
+              `/api/admin/users/${id}?thumb=${thumb}`,
+            {
+              headers: {
+                Authorization: localStorage.getItem("aToken"),
+              },
+            }
           )
           .catch((error) => {
             Swal.fire({
