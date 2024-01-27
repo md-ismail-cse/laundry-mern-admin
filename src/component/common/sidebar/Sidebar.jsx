@@ -1,10 +1,11 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import navLinks from "../../../assets/data/navLinks";
-import "./sidebar.css";
 import SidebarItem from "./SidebarItem";
+import "./sidebar.css";
 
 const Sidebar = () => {
+  // Logout
   const logout = () => {
     localStorage.removeItem("aToken");
     localStorage.removeItem("aID");

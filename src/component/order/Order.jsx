@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Title from "../common/title/Title";
-import "./order.css";
 import axios from "axios";
 import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Loader from "../common/loader/Loader";
+import Title from "../common/title/Title";
+import "./order.css";
 
 const Order = () => {
   // GET ORDERS
@@ -112,13 +112,13 @@ const Order = () => {
                       <td>{item.total_quantity}</td>
                       <td>৳ {item.total_price}</td>
                       <td>
-                        <b>Payment: </b> {item.payment + " "}
+                        {item.payment + " "}
                         {item.payment === "Cash on delivery" && (
                           <>
                             {item.pendingPayment === "Yes" ? (
-                              <b style={{ color: "red" }}>(Pending)</b>
+                              <b className="btn-cncl">Pending</b>
                             ) : (
-                              <b style={{ color: "Lime" }}>(Paid)</b>
+                              <b className="btn-delv">Paid</b>
                             )}
                           </>
                         )}

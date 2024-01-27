@@ -4,11 +4,64 @@ import { Link } from "react-router-dom";
 import Loader from "../common/loader/Loader";
 
 const CartItems = () => {
-  // Orders
+  // Loading
+  const [loading, setLoading] = useState(false);
+
+  // Get Customers
+  const [customers, setCustomers] = useState();
+  useEffect(() => {
+    const fatchCustomers = async () => {
+      const { data } = await axios.get(
+        process.env.REACT_APP_SERVER + "/api/admin/customers",
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
+      );
+      setCustomers(data.length);
+    };
+    fatchCustomers();
+  }, [customers]);
+
+  // Get Delivery Men
+  const [riders, setRiders] = useState();
+  useEffect(() => {
+    const fatchRiders = async () => {
+      const { data } = await axios.get(
+        process.env.REACT_APP_SERVER + "/api/admin/delivery-men",
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
+      );
+      setRiders(data.length);
+    };
+    fatchRiders();
+  }, [riders]);
+
+  // Get Admin
+  const [admins, setAdmins] = useState();
+  useEffect(() => {
+    const fatchAdmins = async () => {
+      const { data } = await axios.get(
+        process.env.REACT_APP_SERVER + "/api/admin/users",
+        {
+          headers: {
+            Authorization: localStorage.getItem("aToken"),
+          },
+        }
+      );
+      setAdmins(data.length);
+    };
+    fatchAdmins();
+  }, [customers]);
+
+  // Get Orders
   const [orders, setOrders] = useState([]);
   const [pendingOrders, setPendingOrders] = useState([]);
   const [completeOrders, setCompleteOrders] = useState([]);
-  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fatchOrders = async () => {
       const { data } = await axios.get(
@@ -93,6 +146,44 @@ const CartItems = () => {
                 </div>
                 <span className="card-icon">
                   <i className="ri-check-double-fill"></i>
+                </span>
+              </div>
+            </Link>
+          </div>
+          <div className="dashboard-cards">
+            {/* Total Customers */}
+            <Link to="/customers">
+              <div className="single-card">
+                <div className="card-content">
+                  <h4>Total Customer</h4>
+                  <span>{customers}+</span>
+                </div>
+                <span className="card-icon">
+                  <i class="ri-map-pin-user-fill"></i>
+                </span>
+              </div>
+            </Link>
+
+            <Link to="/delivery-men">
+              <div className="single-card">
+                <div className="card-content">
+                  <h4>Total Delivery Man</h4>
+                  <span>{riders}+</span>
+                </div>
+                <span className="card-icon">
+                  <i class="ri-truck-line"></i>
+                </span>
+              </div>
+            </Link>
+
+            <Link to="/users">
+              <div className="single-card">
+                <div className="card-content">
+                  <h4>Total Admin</h4>
+                  <span>{admins}+</span>
+                </div>
+                <span className="card-icon">
+                  <i class="ri-team-line"></i>
                 </span>
               </div>
             </Link>

@@ -22,6 +22,7 @@ const TopNav = () => {
     fatchAdmin();
   }, [admin, id]);
 
+  // Logout
   const logout = () => {
     localStorage.removeItem("aToken");
     localStorage.removeItem("aID");
